@@ -1,0 +1,32 @@
+{
+  "name": "koa-decorators-router",
+  "version": "0.0.1",
+  "main": "index.js",
+  "keywords": [
+    "koa2",
+    "koa-router"
+  ],
+  "scripts": {
+    "build": "rm -rf ./lib && tsc",
+    "test": ""
+  },
+  "devDependencies": {
+    "@types/glob": "^5.0.30",
+    "@types/koa-router": "^7.0.22",
+    "mocha": "^3.2.0",
+    "should": "^11.2.1",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "glob": "^7.1.1",
+    "koa": "^2.2.0",
+    "koa-router": "^7.1.1"
+  },
+  "author": {
+      "name": "caoshiping",
+      "email": "soraping@163.com",
+      "url": "https://github.com/soraping"
+  },
+  "homepage": "https://github.com/soraping/koa-decorators-router",
+  "license": "MIT"
+}
