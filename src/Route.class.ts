@@ -53,7 +53,7 @@ export class Route{
      */
     registerRouters(){
         //载入api接口,使用sync同步载入
-        glob.sync(path.join(this.apiDirPath, './*.js')).forEach((item)=>System.import(item));
+        glob.sync(path.join(this.apiDirPath, './*.js')).forEach((item)=>require(item));
         //遍历静态属性_DecoratedRouters
         for(let [config, controller] of Route._DecoratedRouters){
             let controllers = isArray(controller);
@@ -64,7 +64,7 @@ export class Route{
             //拼接api路由
             let routerPath = prefixPath + config.path;
             //遍历追加方法
-            this.router[config.method](routerPath, controllers.join(','));
+            this.router[config.method](routerPath, ...controllers);
         }
         this.app.use(this.router.routes());
         this.app.use(this.router.allowedMethods());

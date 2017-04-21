@@ -5,15 +5,17 @@ declare interface routerConfig{
     path: string
 }
 
+declare interface RouteConfig{
+    //koa实例
+    app: Koa,
+    //api文件夹的相对路径
+    apiDirPath: string
+}
+
 declare namespace koa_decorators_router {
 
     export class Route{
-        constructor({
-             //koa实例
-            app: Koa,
-            //api文件夹的相对路径
-            apiDirPath: string
-        })
+        constructor(opt: RouteConfig)
         registerRouters(): ()=>void; 
     }
     //修饰类的路由方法
