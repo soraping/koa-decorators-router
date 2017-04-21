@@ -5,15 +5,21 @@ import {
     get,
     post,
     put,
-    del
+    del,
+    required,
+    convert,
+    log
 } from './decorators';
 
-export {
+export { 
     Route,
     controller,
     router,
     get,
     post,
     put,
-    del
+    del,
+    required,
+    convert,
+    log
 }

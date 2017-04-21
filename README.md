@@ -29,14 +29,27 @@ router.registerRouters();
 api
 
 ```javascript
-import {controller, get} from 'koa-decorators-router';
+import * as Koa from 'koa';
+import {controller, get, log, required, convert} from 'koa-decorators-router';
 // api path
 @controller('/user')
 class UserController{
 
+    aysnc middleware(ctx, next) => {
+        ctx.body = 'i am middleware';
+    }
+
     // 访问路径就是/user/findOne/zhangsan
     @get('/findOne/:username')
-    async getUserOne (ctx: IRouterContext): Promise<void> {
+    //Url必传参数
+    @required({
+        query: username
+    })
+    //自定义中间件，在接口执行前执行
+    @convert(middleware)
+    //请求日志
+    @log()
+    async getUserOne (ctx: Koa.Context): Promise<void> {
         let user = await UserModel.findOne({username: ctx.params.username});
         ctx.body = user;
     }

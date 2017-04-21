@@ -1,3 +1,4 @@
+import { convert } from './src/decorators';
 import * as Koa from 'koa';
 
 declare interface routerConfig{
@@ -10,6 +11,11 @@ declare interface RouteConfig{
     app: Koa,
     //api文件夹的相对路径
     apiDirPath: string
+}
+
+declare interface requiredConfig{
+    params?: string | string[],
+    query?: string | string[]
 }
 
 declare namespace koa_decorators_router {
@@ -30,6 +36,13 @@ declare namespace koa_decorators_router {
     export function del(path: string): Function;
     //put
     export function put(path: string): Function;
+
+    export function log(): Function;
+
+    export function convert(): Function;
+
+    //get请求时 url参数 required
+    export function required<ParameterDecorator>(rules: requiredConfig): (rules: requiredConfig)=>ParameterDecorator;
 
 }
 

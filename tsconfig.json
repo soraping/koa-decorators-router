@@ -20,7 +20,7 @@
         "build"
     ],
     "include": [
-        "./typings/*.d.ts"
+        "./typings/"
     ],
     "files": [
         "./src/index.ts"
