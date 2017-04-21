@@ -1,4 +1,3 @@
-import { convert } from './src/decorators';
 import * as Koa from 'koa';
 
 declare interface routerConfig{
@@ -42,7 +41,7 @@ declare namespace koa_decorators_router {
     export function convert(): Function;
 
     //get请求时 url参数 required
-    export function required<ParameterDecorator>(rules: requiredConfig): (rules: requiredConfig)=>ParameterDecorator;
+    export function required<ParameterDecorator>(rules: requiredConfig): Function;
 
 }
 

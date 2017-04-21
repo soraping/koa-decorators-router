@@ -39,11 +39,12 @@ class UserController{
         ctx.body = 'i am middleware';
     }
 
-    // 访问路径就是/user/findOne/zhangsan
+    // 访问路径就是/user/findOne/zhangsan?age=40
     @get('/findOne/:username')
     //Url必传参数
     @required({
-        query: username
+        param: 'username',
+        params: 'age'
     })
     //自定义中间件，在接口执行前执行
     @convert(middleware)

@@ -42,13 +42,6 @@ export const router = (config: routerConfig): Function => {
     }
 }
 
-// methods.forEach((method)=>{
-//     return exports[method] = router({
-//         method: method,
-//         path: arguments[0]
-//     })
-// })
-
 export const get = (path: string) => {
     return router({
         method: 'get',
@@ -96,7 +89,7 @@ export const log = () => {
     return (...args: any[]) => {
         return Decorate(
             args,
-            async function Logger(ctx: Koa.Context, next: any){
+            async (ctx: Koa.Context, next: any) => {
                 //请求数加1
                 let currentRequestID = requestID++;
             
@@ -134,7 +127,7 @@ export const required = (rules: requiredConfig) => {
     return (...args: any[]) => {
         return Decorate(
             args,
-            async (ctx: Koa.Context, next: any)=>{
+            async (ctx: Koa.Context, next: any) => {
             if(rules.query){
                 rules.query = isArray(rules.query);
                 for (let name of rules.query) {
