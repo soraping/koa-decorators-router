@@ -13,7 +13,7 @@ export interface routerConfig {
  * @controller('/user')
  * class User{}
  */
-export const controller = (path: string) => {
+export const controller = (path: string):Function => {
     return (target: any) => {
         target.prototype[SymbolRoutePrefix] = path;
     }
@@ -26,7 +26,7 @@ export const controller = (path: string) => {
  *     path: '/list'
  * })
  */
-export const router = (config: routerConfig) => {
+export const router = (config: routerConfig): Function => {
     return (target: any, name: string, value: ParameterDecorator) => {
         config.path = normalizePath(config.path);
         //设置静态值

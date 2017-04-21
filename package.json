@@ -1,20 +1,28 @@
 {
   "name": "koa-decorators-router",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "index.js",
   "keywords": [
     "koa2",
     "koa-router"
   ],
   "scripts": {
+    "prepublish": "npm run build",
     "build": "rm -rf ./lib && tsc",
-    "test": ""
+    "pretest": "rm -rf ./test && tsc -p ./test-ts",
+    "test": "mocha ./test index.js"
   },
   "devDependencies": {
+    "@types/chai": "^3.5.1",
     "@types/glob": "^5.0.30",
     "@types/koa-router": "^7.0.22",
+    "@types/mocha": "^2.2.41",
+    "@types/sinon": "^2.1.2",
+    "@types/sinon-chai": "^2.7.27",
+    "chai": "^3.5.0",
     "mocha": "^3.2.0",
-    "should": "^11.2.1",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0",
     "typescript": "^2.2.2"
   },
   "dependencies": {
@@ -23,10 +31,14 @@
     "koa-router": "^7.1.1"
   },
   "author": {
-      "name": "caoshiping",
-      "email": "soraping@163.com",
-      "url": "https://github.com/soraping"
+    "name": "caoshiping",
+    "email": "soraping@163.com",
+    "url": "https://github.com/soraping"
   },
-  "homepage": "https://github.com/soraping/koa-decorators-router",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soraping/koa-decorators-router"
+  },
+  "homepage": "https://github.com/soraping",
   "license": "MIT"
 }

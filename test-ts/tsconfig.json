@@ -1,0 +1,24 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES6",
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "preserveConstEnums": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "rootDir": "./",
+        "outDir": "../test"
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "./apis"
+    ],
+    "files": [
+        "./index.ts"
+    ]
+}
