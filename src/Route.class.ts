@@ -4,7 +4,8 @@ import * as Koa from 'koa';
 import * as Router from 'koa-router' ;
 import * as glob from 'glob';
 import {
-    isArray
+    isArray,
+    normalizePath
 } from './utils';
 
 const router = new Router();
@@ -57,8 +58,8 @@ export class Route{
         for(let [config, controller] of Route._DecoratedRouters){
             let controllers = isArray(controller);
             let prefixPath = config.target[SymbolRoutePrefix];
-            if(prefixPath && (!prefixPath.startsWith('/'))){
-                prefixPath = '/' + prefixPath;
+            if(prefixPath){
+                prefixPath = normalizePath(prefixPath);
             }
             //拼接api路由
             let routerPath = prefixPath + config.path;

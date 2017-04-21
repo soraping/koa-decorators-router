@@ -1,11 +1,7 @@
 import { Route , SymbolRoutePrefix} from './Route.class';
-//http method
-const methods = [
-    'get',
-    'post',
-    'put',
-    'delete'
-];
+import {
+    normalizePath
+} from './utils'
 
 export interface routerConfig {
     method: string;
@@ -32,12 +28,48 @@ export const controller = (path: string) => {
  */
 export const router = (config: routerConfig) => {
     return (target: any, name: string, value: ParameterDecorator) => {
+        config.path = normalizePath(config.path);
         //设置静态值
         Route._DecoratedRouters.set({
             target: target,
             ...config
         }, target[name])
     }
+}
+
+// methods.forEach((method)=>{
+//     return exports[method] = router({
+//         method: method,
+//         path: arguments[0]
+//     })
+// })
+
+export const get = (path: string) => {
+    return router({
+        method: 'get',
+        path: path
+    })
+}
+
+export const post = (path: string) => {
+    return router({
+        method: 'post',
+        path: path
+    })
+}
+
+export const put = (path: string) => {
+    return router({
+        method: 'put',
+        path: path
+    })
+}
+
+export const del = (path: string) => {
+    return router({
+        method: 'delete',
+        path: path
+    })
 }
 
 // /**

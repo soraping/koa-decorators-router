@@ -1,11 +1,19 @@
 import { Route } from './Route.class';
 import { 
     controller,
-    router
+    router,
+    get,
+    post,
+    put,
+    del
 } from './decorators';
 
 export {
     Route,
     controller,
-    router
+    router,
+    get,
+    post,
+    put,
+    del
 }
