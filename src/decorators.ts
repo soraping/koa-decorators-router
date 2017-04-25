@@ -96,7 +96,7 @@ export const log = () => {
                 //请求开始时间
                 const startTime = process.hrtime();
                 console.log(`→ (ID:${currentRequestID}) ${ctx.method} ${ctx.url}`);
-                if((ctx.method).toLowerCase()  == 'post'){
+                if((ctx.method).toLowerCase()  == 'post' || (ctx.method).toLowerCase()  == 'put'){
                     console.log(`→ (ID:${currentRequestID}) ${ctx.method} ${JSON.stringify(ctx.request.body)}`);
                 }
                 await next();
@@ -114,7 +114,12 @@ export const log = () => {
 
 export interface requiredConfig{
     params?: string | string[],
-    query?: string | string[]
+    query?: string | string[],
+    body?: requiredBody
+}
+
+export interface requiredBody {
+    [key: string]: string
 }
 
 /**
@@ -122,26 +127,64 @@ export interface requiredConfig{
  * @required({params: 'username'})
  * @required({params: ['username','age']})
  * @required({query: 'username'})
+ * 
+ * post 请求参数检测
+ * @required({body: {username: string}})
+ * 
+ * delete put 请求
+ * @required({params: 'id'})
  */
 export const required = (rules: requiredConfig) => {
     return (...args: any[]) => {
         return Decorate(
             args,
             async (ctx: Koa.Context, next: any) => {
-            if(rules.query){
-                rules.query = isArray(rules.query);
-                for (let name of rules.query) {
-                    if (!ctx.query[name]) ctx.throw(412, `GET Request query: ${name} required`);
+                let method = (ctx.method).toLowerCase();
+                switch(method){
+                    case 'get':
+                        if(rules.query){
+                            rules.query = isArray(rules.query);
+                            for (let name of rules.query) {
+                                if (!ctx.query[name]) ctx.throw(412, `${method} Request query: ${name} required`);
+                            }
+                        }
+                        if (rules.params) {
+                            rules.params = isArray(rules.params);
+                            for (let name of rules.params) {
+                                if (!ctx.params[name]) ctx.throw(412, `${method} Request params: ${name} required`);
+                            }
+                        }
+                        break;
+
+                    case 'post':
+                        if(rules.body){
+                            let req = ctx.request.body;
+                            if(!req){
+                                ctx.throw(412, `${method} request body are required`)
+                            }
+                            for(let name of Object.keys(rules.body)){
+                                if(!req[name]) ctx.throw(412, `${method} request body: ${name} required`);
+                                if(typeof req[name] != rules.body[name]) ctx.throw(412, `${method} request body: ${name} is ${rules.body[name]}`)
+                            }
+                        }
+                    break;
+
+                    case 'put':
+                    case 'delete':
+                        if (rules.params) {
+                            rules.params = isArray(rules.params);
+                            for (let name of rules.params) {
+                                if (!ctx.params[name]) ctx.throw(412, `${method} Request params: ${name} required`);
+                            }
+                        }
+                        break;
+                    default:
+                        console.log(`${method} Request`);
+
                 }
-            }
-            if (rules.params) {
-                rules.params = isArray(rules.params);
-                for (let name of rules.params) {
-                    if (!ctx.params[name]) ctx.throw(412, `GET Request params: ${name} required`);
-                }
-            }
-            await next();
-        })
+                
+                await next();
+            })
     }
 }
 

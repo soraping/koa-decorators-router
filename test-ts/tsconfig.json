@@ -16,7 +16,8 @@
         "node_modules"
     ],
     "include": [
-        "./apis"
+        "./apis",
+        "../typings/"
     ],
     "files": [
         "./index.ts"

@@ -12,9 +12,14 @@ declare interface RouteConfig{
     apiDirPath: string
 }
 
+declare interface requiredBody {
+    [key: string]: string
+}
+
 declare interface requiredConfig{
     params?: string | string[],
-    query?: string | string[]
+    query?: string | string[],
+    body?: requiredBody
 }
 
 declare namespace koa_decorators_router {

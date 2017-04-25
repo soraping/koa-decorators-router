@@ -43,8 +43,8 @@ class UserController{
     @get('/findOne/:username')
     //Url必传参数
     @required({
-        param: 'username',
-        params: 'age'
+        params: 'username',
+        query: 'age'
     })
     //自定义中间件，在接口执行前执行
     @convert(middleware)
@@ -54,6 +54,36 @@ class UserController{
         let user = await UserModel.findOne({username: ctx.params.username});
         ctx.body = user;
     }
+
+    @post('list')
+    // post 请求参数需要校验参数类型
+    // post 只挂在body下
+    @required({
+        body: {
+            q: 'string',
+            pageNum: 'number'
+        }
+    })
+    async getList ():Promise<void>{
+
+    }
+
+    @put('upd/:id')
+    @required({
+        params : 'id'
+    })
+    async updGoods() : Promise<void> {
+
+    }
+
+    @del('del/:id')
+    @required({
+        params : 'id'
+    })
+    async delGoods () : Promise<void> {
+
+    }
+
 }
 ```
 
