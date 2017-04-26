@@ -23,6 +23,7 @@ const app = new Koa()
 const router = new Route(app, apiPath);
 //注册路由
 router.registerRouters();
+app.listen('3000');
 
 ```
 
@@ -51,8 +52,11 @@ class UserController{
     //请求日志
     @log()
     async getUserOne (ctx: Koa.Context): Promise<void> {
-        let user = await UserModel.findOne({username: ctx.params.username});
-        ctx.body = user;
+        let data = {
+            username: ctx.params.username,
+            age: ctx.query.age
+        }
+        ctx.body = data;
     }
 
     @post('list')
@@ -86,6 +90,19 @@ class UserController{
 
 }
 ```
+
+访问:
+http://localhost:3000/user/findOne/zhangsan?age=40
+
+浏览器会显示:
+
+```
+{
+    "username": "zhangsan",
+    "age": 40
+}
+```
+
 
 ### 案例
 https://github.com/soraping/koa-ts
